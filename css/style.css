@@ -16,6 +16,7 @@
   -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
   margin: 0;
   padding: 0;
+  transition: all ease-in-out 0.5s;
 }
 ::-webkit-scrollbar {
   width: 0.4rem;
@@ -237,6 +238,9 @@ footer a {
 footer a:hover {
   text-decoration: underline;
 }
+.filter {
+  background-color: transparent;
+}
 .hide {
   display: none;
 }
@@ -313,10 +317,6 @@ footer a:hover {
     border-radius: 0.3rem;
     font-size: 0.9rem;
   }
-  .filter.light {
-    -webkit-box-shadow: 0px 9px 26px 0px rgba(0, 0, 0, 0.1);
-    box-shadow: 0px 9px 26px 0px rgba(0, 0, 0, 0.1);
-  }
   #clear {
     text-decoration: underline;
     text-underline-offset: 0.1rem;
@@ -324,6 +324,9 @@ footer a:hover {
   footer a {
     text-decoration: underline;
     text-underline-offset: 0.1rem;
+  }
+  .filter.light {
+    background-color: hsl(0, 0%, 98%) !important;
   }
 }
 
@@ -344,14 +347,15 @@ body.light {
 .task.light .circle {
   border: 0.1rem solid hsl(233, 11%, 84%);
 }
-.task.light h2{
+.task.light h2 {
   color: hsl(235, 19%, 35%);
 }
-.task.light .line{
+.task.light .line {
   color: hsl(236, 9%, 61%);
 }
 .filter.light {
-  background-color: hsl(0, 0%, 98%) !important;
+  -webkit-box-shadow: 0px 9px 26px 0px rgba(0, 0, 0, 0.1);
+  box-shadow: 0px 9px 26px 0px rgba(0, 0, 0, 0.1);
 }
 .footer.light a:hover {
   color: hsl(235, 19%, 35%);
