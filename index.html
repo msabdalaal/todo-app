@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <!-- displays site properly based on user's device -->
+
+    <link
+      rel="icon"
+      type="image/png"
+      sizes="32x32"
+      href="./images/favicon-32x32.png"
+    />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Josefin+Sans:wght@400;700&display=swap"
+      rel="stylesheet"
+    />
+
+    <title>Frontend Mentor | Todo App</title>
+
+    <link rel="stylesheet" href="./css/style.css" />
+  </head>
+  <body class="light">
+    <header class="container">
+      <h1>TODO</h1>
+      <img
+        src="./images/icon-sun.svg"
+        alt="Light Mode"
+        id="sun"
+        onclick="makeLight()"
+        class="theme"
+      />
+      <img
+        src="./images/icon-moon.svg"
+        alt="Light Mode"
+        id="moon"
+        onclick="makeDark()"
+        class="theme"
+      />
+    </header>
+    <main class="">
+      <div class="iputField light">
+        <div class="circle light"></div>
+        <input
+          type="text"
+          class="input light"
+          id="input_1"
+          placeholder="Create a new todo..."
+        />
+      </div>
+      <div class="taskContainer container light">
+        <div class="tasks">
+          <div class="task">
+            <input type="checkbox" name="status" />
+            <label> <span class="circle"></span></label>
+            <h3>Complete Java Script</h3>
+            <img
+              src="./images/icon-cross.svg"
+              alt="close"
+              id="close"
+              class="close"
+            />
+          </div>
+        </div>
+        <div class="footer light">
+          <p id="count">5 items left</p>
+          <div class="filter">
+            <a id="all" onclick="allTasks()" class="active">All</a>
+            <a id="active" onclick="active()">Active</a>
+            <a id="completed" onclick="completed()">Completed</a>
+          </div>
+          <a id="clear">Clear Copmleted</a>
+        </div>
+      </div>
+    </main>
+    <footer class="attribution">
+      Challenge by
+      <a href="https://www.frontendmentor.io?ref=challenge" target="_blank"
+        >Frontend Mentor</a
+      >. Coded by
+      <a href="https://github.com/msabdalaal" target="_blank">Mohamed Sayed</a>.
+    </footer>
+    <script src="./js/main.js"></script>
+  </body>
+</html>
