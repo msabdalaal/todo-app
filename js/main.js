@@ -8,13 +8,15 @@ if (localStorage.getItem("number") === null) {
 }
 if (localStorage.getItem("theme") === null) {
   localStorage.setItem("theme", "dark");
+  sun.classList.remove("hide");
+  moon.classList.add("hide");
 }
 tasks.innerHTML = localStorage.getItem("todos");
 
 let createTask = () => {
   if (input.value != "") {
     let task = document.createElement("div");
-    task.classList = "task";
+    task.classList = "task light";
     task.id = localStorage.getItem("number");
     let checkbox = document.createElement("input");
     checkbox.type = `checkbox`;

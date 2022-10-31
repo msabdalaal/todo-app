@@ -187,6 +187,9 @@ main .iputField .input:focus {
   height: 4.5rem;
   border-bottom: 0.01rem solid hsl(235, 19%, 35%);
 }
+.task.light {
+  border-bottom: 0.01rem solid hsl(233, 11%, 84%);
+}
 .task h3 {
   /* font-weight: 400; */
   font-size: 1.2rem;
@@ -240,6 +243,9 @@ footer a:hover {
   body {
     background-image: url(../images/bg-mobile-dark.jpg);
     padding: 1.5rem;
+  }
+  body.light {
+    background-image: url(../images/bg-mobile-light.jpg) !important;
   }
   .container {
     width: 100%;
@@ -306,6 +312,10 @@ footer a:hover {
     border-radius: 0.3rem;
     font-size: 0.9rem;
   }
+  .filter.light {
+    -webkit-box-shadow: 0px 9px 26px 0px rgba(0, 0, 0, 0.1);
+    box-shadow: 0px 9px 26px 0px rgba(0, 0, 0, 0.1);
+  }
   #clear {
     text-decoration: underline;
     text-underline-offset: 0.1rem;
@@ -338,6 +348,9 @@ h3.light {
 }
 .line.light {
   color: hsl(236, 9%, 61%);
+}
+.filter.light {
+  background-color: hsl(0, 0%, 98%) !important;
 }
 .footer.light a:hover {
   color: hsl(235, 19%, 35%);
