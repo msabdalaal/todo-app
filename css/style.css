@@ -341,13 +341,13 @@ body.light {
 .taskContainer.light {
   background-color: hsl(0, 0%, 98%);
 }
-.circle.light {
+.task.light .circle {
   border: 0.1rem solid hsl(233, 11%, 84%);
 }
-h2.light {
+.task.light h2{
   color: hsl(235, 19%, 35%);
 }
-.line.light {
+.task.light .line{
   color: hsl(236, 9%, 61%);
 }
 .filter.light {

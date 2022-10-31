@@ -3,22 +3,26 @@ let tasks = document.querySelector(".tasks");
 let x = document.getElementsByClassName("close");
 let sun = document.getElementById("sun");
 let moon = document.getElementById("moon");
+let light = document.querySelectorAll(".light");
 
 input.focus();
 if (localStorage.getItem("number") === null) {
   localStorage.setItem("number", 0);
 }
 if (localStorage.getItem("theme") === null) {
+  Array.from(light).forEach((ele) => {
+    ele.classList.remove("light");
+  });
   localStorage.setItem("theme", "dark");
   sun.classList.remove("hide");
   moon.classList.add("hide");
 }
-tasks.innerHTML = localStorage.getItem("todos");
 
+tasks.innerHTML = localStorage.getItem("todos");
 let createTask = () => {
   if (input.value != "") {
     let task = document.createElement("div");
-    task.classList = "task light";
+    task.classList = "task";
     task.id = localStorage.getItem("number");
     let checkbox = document.createElement("input");
     checkbox.id = `${localStorage.getItem("number")}_check`;
@@ -28,9 +32,8 @@ let createTask = () => {
     label.setAttribute("for", `${localStorage.getItem("number")}_check`);
     checkbox.classList = `circle`;
     let span = document.createElement("span");
-    span.classList = `circle light`;
+    span.classList = `circle`;
     let h2 = document.createElement("h2");
-    h2.classList = `light`;
     h2.innerHTML = input.value;
     let img = document.createElement("img");
     img.src = "./images/icon-cross.svg";
@@ -47,6 +50,7 @@ let createTask = () => {
     localStorage.setItem("number", `${+localStorage.getItem("number") + 1}`);
     localStorage.setItem("todos", tasks.innerHTML);
     x = document.getElementsByClassName("close");
+    light = document.querySelectorAll(".light");
   }
 };
 
@@ -151,9 +155,7 @@ let allTasks = () => {
     ele.classList.remove("hide");
   });
 };
-
-let light = document.querySelectorAll(".light");
-
+console.log(task);
 let makeDark = () => {
   Array.from(light).forEach((ele) => {
     ele.classList.remove("light");
@@ -161,6 +163,9 @@ let makeDark = () => {
   localStorage.setItem("theme", "dark");
   sun.classList.remove("hide");
   moon.classList.add("hide");
+  Array.from(task).forEach((ele) => {
+    ele.classList.remove("light");
+  });
 };
 let makeLight = () => {
   Array.from(light).forEach((ele) => {
@@ -169,8 +174,12 @@ let makeLight = () => {
   localStorage.setItem("theme", "light");
   sun.classList.add("hide");
   moon.classList.remove("hide");
+  Array.from(task).forEach((ele) => {
+    ele.classList.add("light");
+  });
 };
 let adjustTheme = () => {
+  light = document.querySelectorAll(".light");
   if (localStorage.getItem("theme") == "dark") {
     makeDark();
   }
