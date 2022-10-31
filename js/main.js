@@ -1,6 +1,9 @@
 let input = document.getElementById("input_1");
 let tasks = document.querySelector(".tasks");
 let x = document.getElementsByClassName("close");
+let sun = document.getElementById("sun");
+let moon = document.getElementById("moon");
+
 
 input.focus();
 if (localStorage.getItem("number") === null) {
@@ -149,8 +152,6 @@ let allTasks = () => {
 };
 
 let light = document.querySelectorAll(".light");
-let sun = document.getElementById("sun");
-let moon = document.getElementById("moon");
 
 let makeDark = () => {
   Array.from(light).forEach((ele) => {
