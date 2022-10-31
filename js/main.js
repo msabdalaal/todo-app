@@ -21,15 +21,17 @@ let createTask = () => {
     task.classList = "task light";
     task.id = localStorage.getItem("number");
     let checkbox = document.createElement("input");
+    checkbox.id = `${localStorage.getItem("number")}_check`;
     checkbox.type = `checkbox`;
     checkbox.name = `status`;
     let label = document.createElement("label");
+    label.setAttribute("for", `${localStorage.getItem("number")}_check`);
     checkbox.classList = `circle`;
     let span = document.createElement("span");
     span.classList = `circle light`;
-    let h3 = document.createElement("h3");
-    h3.classList = `light`;
-    h3.innerHTML = input.value;
+    let h2 = document.createElement("h2");
+    h2.classList = `light`;
+    h2.innerHTML = input.value;
     let img = document.createElement("img");
     img.src = "./images/icon-cross.svg";
     img.alt = "close";
@@ -38,7 +40,7 @@ let createTask = () => {
     label.appendChild(span);
     task.appendChild(checkbox);
     task.appendChild(label);
-    task.appendChild(h3);
+    task.appendChild(h2);
     task.appendChild(img);
     tasks.appendChild(task);
     input.value = "";
@@ -77,9 +79,9 @@ Array.from(checkboxes).forEach((ele) => {
   });
 });
 
-let h3 = document.getElementsByTagName("h3");
+let h2 = document.getElementsByTagName("h2");
 
-Array.from(h3).forEach((ele) => {
+Array.from(h2).forEach((ele) => {
   ele.addEventListener("click", (e) => {
     ele.previousSibling.firstChild.classList.toggle("check");
     ele.parentElement.childNodes[2].classList.toggle("line");
