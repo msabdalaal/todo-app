@@ -4,7 +4,6 @@ let x = document.getElementsByClassName("close");
 let sun = document.getElementById("sun");
 let moon = document.getElementById("moon");
 
-
 input.focus();
 if (localStorage.getItem("number") === null) {
   localStorage.setItem("number", 0);
