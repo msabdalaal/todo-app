@@ -1,24 +1,30 @@
 let input = document.getElementById("input_1");
 let tasks = document.querySelector(".tasks");
-let x = document.getElementsByClassName("close");
 let sun = document.getElementById("sun");
 let moon = document.getElementById("moon");
 let light = document.querySelectorAll(".light");
+let taskArray = [];
 
-input.focus();
+if (localStorage.getItem("theme") === null) {
+  localStorage.setItem("theme", "dark");
+}
+
 if (localStorage.getItem("number") === null) {
   localStorage.setItem("number", 0);
 }
-if (localStorage.getItem("theme") === null) {
-  Array.from(light).forEach((ele) => {
-    ele.classList.remove("light");
+
+if (localStorage.getItem("todos") === null) {
+  localStorage.setItem("todos", JSON.stringify(taskArray));
+  tasks.innerHTML = taskArray.map((ele) => {
+    return ele;
   });
-  localStorage.setItem("theme", "dark");
-  sun.classList.remove("hide");
-  moon.classList.add("hide");
+} else {
+  taskArray = JSON.parse(localStorage.getItem("todos"));
+  tasks.innerHTML = taskArray.join("");
 }
 
-tasks.innerHTML = localStorage.getItem("todos");
+input.focus();
+
 let createTask = () => {
   if (input.value != "") {
     let task = document.createElement("div");
@@ -34,6 +40,7 @@ let createTask = () => {
     let span = document.createElement("span");
     span.classList = `circle`;
     let h2 = document.createElement("h2");
+    h2.classList = `h2`;
     h2.innerHTML = input.value;
     let img = document.createElement("img");
     img.src = "./images/icon-cross.svg";
@@ -46,11 +53,11 @@ let createTask = () => {
     task.appendChild(h2);
     task.appendChild(img);
     tasks.appendChild(task);
+    taskArray.push(task.outerHTML);
     input.value = "";
     localStorage.setItem("number", `${+localStorage.getItem("number") + 1}`);
-    localStorage.setItem("todos", tasks.innerHTML);
-    x = document.getElementsByClassName("close");
-    light = document.querySelectorAll(".light");
+    localStorage.setItem("todos", JSON.stringify(taskArray));
+    tasks.innerHTML = taskArray.join("");
   }
 };
 
@@ -58,51 +65,54 @@ input.addEventListener("keypress", (event) => {
   if (event.key === "Enter") {
     event.preventDefault();
     createTask();
-    document.location.reload();
+    countItems();
+    let light = document.querySelectorAll(".light");
   }
 });
 
-Array.from(x).forEach((element) => {
-  element.addEventListener("click", function (e) {
-    let id = `${e.target.id}`;
-    let ele = document.getElementById(+id.slice(6));
-    ele.remove();
-    localStorage.setItem("todos", tasks.innerHTML);
-    document.location.reload();
-  });
-});
-
-let checkboxes = document.getElementsByName("status");
-
-Array.from(checkboxes).forEach((ele) => {
-  ele.addEventListener("click", (e) => {
-    ele.nextSibling.firstChild.classList.toggle("check");
-    ele.parentElement.childNodes[2].classList.toggle("line");
+tasks.addEventListener("click", (ele) => {
+  if (ele.target.classList.contains("close")) {
+    ele.target.parentElement.remove();
+    taskArray.splice(taskArray.indexOf(ele), 1);
+    localStorage.setItem("todos", JSON.stringify(taskArray));
     countItems();
-    localStorage.setItem("todos", tasks.innerHTML);
-  });
+  }
 });
 
-let h2 = document.getElementsByTagName("h2");
-
-Array.from(h2).forEach((ele) => {
-  ele.addEventListener("click", (e) => {
-    ele.previousSibling.firstChild.classList.toggle("check");
-    ele.parentElement.childNodes[2].classList.toggle("line");
-    countItems();
-    localStorage.setItem("todos", tasks.innerHTML);
+let addCheckBox = () => {
+  tasks.addEventListener("click", (ele) => {
+    if (ele.target.classList.contains("circle")) {
+      let index = ele.target.parentElement.outerHTML;
+      ele.target.nextSibling.firstChild.classList.toggle("check");
+      ele.target.parentElement.childNodes[2].classList.toggle("line");
+      taskArray[taskArray.indexOf(index)] = ele.target.parentElement.outerHTML;
+      localStorage.setItem("todos", JSON.stringify(taskArray));
+      tasks.innerHTML = taskArray.join("");
+      countItems();
+    }
+    if (ele.target.classList.contains("h2")) {
+      let index = ele.target.parentElement.outerHTML;
+      ele.target.previousSibling.firstChild.classList.toggle("check");
+      ele.target.parentElement.childNodes[2].classList.toggle("line");
+      taskArray[taskArray.indexOf(index)] = ele.target.parentElement.outerHTML;
+      localStorage.setItem("todos", JSON.stringify(taskArray));
+      tasks.innerHTML = taskArray.join("");
+      countItems();
+    }
   });
-});
+};
+addCheckBox();
 
 let clear = document.getElementById("clear");
 let task = document.getElementsByClassName("task");
 clear.addEventListener("click", () => {
+  // task = document.getElementsByClassName("task");
   Array.from(task).forEach((ele) => {
     if (ele.children[1].children[0].classList.contains("check")) {
       ele.remove();
+      taskArray.splice(taskArray.indexOf(ele.outerHTML), 1);
+      localStorage.setItem("todos", JSON.stringify(taskArray));
       countItems();
-      localStorage.setItem("todos", tasks.innerHTML);
-      document.location.reload();
     }
   });
 });
@@ -118,6 +128,7 @@ let countItems = () => {
   count.innerHTML = `${task.length - counter} items left`;
 };
 countItems();
+
 let filter = document.querySelector(".filter").children;
 let completed = () => {
   Array.from(filter).forEach((e) => {
@@ -132,6 +143,7 @@ let completed = () => {
     }
   });
 };
+
 let active = () => {
   Array.from(filter).forEach((e) => {
     e.classList.remove("active");
@@ -155,31 +167,33 @@ let allTasks = () => {
     ele.classList.remove("hide");
   });
 };
-console.log(task);
+
 let makeDark = () => {
   Array.from(light).forEach((ele) => {
     ele.classList.remove("light");
   });
-  localStorage.setItem("theme", "dark");
+
   sun.classList.remove("hide");
   moon.classList.add("hide");
   Array.from(task).forEach((ele) => {
     ele.classList.remove("light");
   });
+  localStorage.setItem("theme", "dark");
 };
+
 let makeLight = () => {
   Array.from(light).forEach((ele) => {
     ele.classList.add("light");
   });
-  localStorage.setItem("theme", "light");
   sun.classList.add("hide");
   moon.classList.remove("hide");
   Array.from(task).forEach((ele) => {
     ele.classList.add("light");
   });
+  localStorage.setItem("theme", "light");
 };
+
 let adjustTheme = () => {
-  light = document.querySelectorAll(".light");
   if (localStorage.getItem("theme") == "dark") {
     makeDark();
   }
